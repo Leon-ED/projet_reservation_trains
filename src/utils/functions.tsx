@@ -39,7 +39,7 @@ export const getStations = async () : Promise<Station[]> => {
 
 
 export const getTrainFromResult = async (search: SearchType) : Promise<Train[]> => {
-    const { departure_station, arrival_station, date_departure, date_return, isRoundTrip, number_of_passengers } = search
+    const { departure_station, arrival_station, date_departure} = search
 
     // TODO : Appel API
     return [

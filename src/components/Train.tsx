@@ -1,6 +1,5 @@
 import { useNavigate } from "react-router-dom"
-import { stationFullName } from "../utils/functions"
-import { Station, Train } from "../utils/types"
+import {  Train } from "../utils/types"
 
 
 
