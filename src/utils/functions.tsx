@@ -9,7 +9,7 @@ export const getStations = async () : Promise<Station[]> => {
     return [
         {
             "id": 1,
-            "name": "Paris",
+            "name": "Paris-Est",
             "city": "Paris",
             "region": "Ile de France",
             "type": "terminus"
@@ -31,8 +31,8 @@ export const getStations = async () : Promise<Station[]> => {
         }]}
 
 
-export const getTrainFromResult = async (props: SearchType) : Promise<Train[]> => {
-    const { departure_station, arrival_station, date_departure, date_arrival, isRoundTrip, number_of_passengers, date_return } = props
+export const getTrainFromResult = async (search: SearchType) : Promise<Train[]> => {
+    const { departure_station, arrival_station, date_departure, date_return, isRoundTrip, number_of_passengers } = search
 
     // TODO : Appel API
     return [
@@ -43,7 +43,7 @@ export const getTrainFromResult = async (props: SearchType) : Promise<Train[]> =
             "arrival_station": arrival_station,
             "stopsList": [departure_station, arrival_station],
             "date_time_departure": date_departure,
-            "date_time_arrival": date_arrival,
+            "date_time_arrival": date_departure,
             "operator": "SNCF",
             "price": 10
         },
@@ -54,7 +54,7 @@ export const getTrainFromResult = async (props: SearchType) : Promise<Train[]> =
             "arrival_station": arrival_station,
             "stopsList": [departure_station, arrival_station],
             "date_time_departure": date_departure,
-            "date_time_arrival": date_arrival,
+            "date_time_arrival": date_departure,
             "operator": "RATP",
             "price": 10
         },
@@ -65,7 +65,7 @@ export const getTrainFromResult = async (props: SearchType) : Promise<Train[]> =
             "arrival_station": arrival_station,
             "stopsList": [departure_station, arrival_station],
             "date_time_departure": date_departure,
-            "date_time_arrival": date_arrival,
+            "date_time_arrival": date_departure,
             "operator": "Véolia Transport",
             "price": 10
         }]
@@ -78,6 +78,15 @@ export const getTrainFromResult = async (props: SearchType) : Promise<Train[]> =
 
 export const  buildSearchURL = (search: SearchType) => {
     //   /search/:dateFrom/:dateTo/:departureStation/:arrivalStation/:numberOfPassengers/:isRoundTrip/:returnDate
-    return HOST + "/search/" + search.date_departure + "/" + search.date_arrival + "/" + search.departure_station.id + "/" + search.arrival_station.id + "/" + search.number_of_passengers + "/" + search.isRoundTrip + "/" + search.date_return
+    return "/search/" + search.date_departure + "/" + search.departure_station.id + "/" + search.arrival_station.id + "/" + search.number_of_passengers + "/" + search.isRoundTrip + "/" + search.date_return
 
+}
+
+
+export const getStationFromId = async (id: string) : Promise<Station> => {
+    const idStation = parseInt(id)
+
+    const stations = await getStations()
+    return stations.find((station) => station.id === idStation)!
+    
 }

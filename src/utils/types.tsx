@@ -27,7 +27,6 @@ export interface SearchType{
     arrival_station:Station
 
     date_departure:string
-    date_arrival:string
 
     isRoundTrip:boolean
     number_of_passengers:number
