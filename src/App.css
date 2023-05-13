@@ -16,12 +16,12 @@
 
 @font-face {
   font-family: Parisine;
-  src: url("assets/fonts/Parisine-Bold.otf");
+  src: url("/fonts/Parisine-Bold.otf");
 }
 
 @font-face {
   font-family: Parisine-regular;
-  src: url('assets/fonts/Parisine-Regular.otf');
+  src: url('/fonts/Parisine-Regular.otf');
 }
 
 body {
@@ -110,12 +110,16 @@ p{
   display: flex;
   flex-direction: row;
   align-items: center;
+  justify-content: center;
 }
 .search-field-container{
   gap: 20px;
 }
 .search-field-container div{
   gap: 5px;
+}
+.center{
+  text-align: center;
 }
 
 .flex-row{
@@ -150,15 +154,91 @@ p{
   border: none;
 }
 
+.train_list{
+  width: 100%;
+
+
+}
 .train{
+  height:50%;
+  margin:10px auto;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 10px;
-  width: 100%;
-  padding: 10px;
+  gap:10px;
+  border: 1px solid var(--bg2);
   border-radius: 10px;
-  background-color: var(--bg2);
+  padding: 10px;
+
+
 }
 
+.train:hover{
+  cursor: pointer;
+}
+
+.train__footer{
+  display: flex;
+
+  gap: 20px
+}
+
+.train__operator{
+  font-family: Parisine;
+  font-size: 1.2rem;
+  margin-right: 10px;
+}
+
+.train__price{
+  font-family: Parisine;
+  font-size: 1.2rem;
+  margin-right: 10px;
+}
+
+.train__hour{
+  font-family: Parisine;
+  margin-right: 10px;
+  font-size: 1.2rem;
+}
+
+
+
+
+.visibility_hidden{
+  visibility: hidden;
+}
+figure{
+  margin: 0;
+}
+figure img{
+  margin: 5px;
+  border-radius: 10px;
+}
+
+
+@media screen and (max-width: 768px) {
+  section {
+    width: 90%;
+  }
+  .flex-row
+  {
+    flex-direction: column;
+  }
+  p{
+    max-width: 100%;
+  }
+  img{
+    width: 100%;
+    aspect-ratio: 1/1;
+  }
+  nav{
+    flex-direction: column;
+  }
+  nav img{
+    display: none;
+  }
+  nav div{
+    flex-direction: column;
+  }
+
+  
+}

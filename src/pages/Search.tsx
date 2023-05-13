@@ -34,7 +34,7 @@ export const SearchPage = () => {
             setTrainList(await getTrainFromResult(search))
         }
         getTrains()
-    
+
     }, [])
 
     const [trainList, setTrainList] = useState<Train[]>();
@@ -51,22 +51,17 @@ export const SearchPage = () => {
     })
 
 
-        
-
-
-
-
-
-
-
     return (
         <>
             <SearchComponent />
             <SearchRecap departure_station={departureStation} arrival_station={arrivalStation} date_departure={dateFrom} date_return={returnDate} number_of_passengers={parseInt(numberOfPassengers)} isRoundTrip={isRoundTripBool} />
-            <div>
+            <section>
+                <h2>Liste des trains</h2>
+                <div className="train_list">
                 {trainsComponent}
-            </div>
 
+                </div>
+            </section>
         </>
 
 

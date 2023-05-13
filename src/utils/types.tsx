@@ -10,13 +10,17 @@ export interface Station{
 export interface Train{
     id:number
     train_number:string
+    train_type:string
 
     departure_station:Station
     arrival_station:Station
     stopsList : Station[]
 
-    date_time_departure:string
-    date_time_arrival:string
+    date_departure:string
+    date_arrival:string
+
+    time_departure:string
+    time_arrival:string
 
     operator:string
     price:number

@@ -96,7 +96,7 @@ export const SearchComponent = () => {
                     <label htmlFor="time"> <h3>vers </h3> </label>
                     <input type="text" list="stationsList" name="gare" id="gareArrivee" placeholder="Gare d'arrivée" />
                 </div>
-                <div className="search-field-container flex-row" style={{ visibility: isRoundTrip ? "visible" : "hidden" }}>
+                <div className='search-field-container flex-row'>
                     <h3>Retour</h3>
                     <div className="flex-row">
                         <label htmlFor="date_time_local"> <h3> le </h3> </label>

@@ -2,7 +2,7 @@ export const Navbar = () => {
     return (
         <nav>
             <div className="left">
-                <img src="imgs/ratp.png" height="50px" />
+                <img src="/imgs/ratp.png" height="50px" />
                 <h2>Régie Autonome du Tran Parisien</h2>
             </div>
             <div className="middle">
