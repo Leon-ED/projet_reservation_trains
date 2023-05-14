@@ -4,6 +4,6 @@ Pour installer :
 
 npm install dans le dossier cloné 
 
-composer require mongodb/mongodb 
+composer install
 
 npm run dev
