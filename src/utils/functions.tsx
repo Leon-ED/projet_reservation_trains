@@ -3,7 +3,7 @@ import { SearchType, Station, Train } from "./types"
 export const HOST = "http://localhost:5173"
 
 const noisyStation: Station = {
-    id: 93160,
+    _id: 93160,
     name: "Noisy-le-Grand - Mont d'Est",
     city: "Noisy-le-Grand",
     region: "Ile de France",
@@ -13,29 +13,14 @@ const noisyStation: Station = {
 
 export const getStations = async () : Promise<Station[]> => {
     // TODO : Appel API
-    return [
-        {
-            "id": 1,
-            "name": "Paris-Est",
-            "city": "Paris",
-            "region": "Ile de France",
-            "type": "terminus"
-        },
-        {
-            "id": 2,
-            "name": "Paris Gare du Nord",
-            "city": "Paris",
-            "region": "Ile de France",
-            "type": "terminus"
-        },
-        {
-            "id": 3,
-            "name": "Versailles-Chantiers",
-            "city": "Versailles",
-            "region": "Ile de France",
-            "type": "passing",
 
-        }]}
+    // call the stations.php api by a get request
+
+    const response = await fetch(`http://localhost:80/projet_reservation_trains/src/api/stations.php`)
+    const stations = await response.json()
+    
+    return stations
+}
 
 
 export const getTrainFromResult = async (search: SearchType) : Promise<Train[]> => {
@@ -94,7 +79,7 @@ export const getTrainFromResult = async (search: SearchType) : Promise<Train[]> 
 
 export const  buildSearchURL = (search: SearchType) => {
     //   /search/:dateFrom/:dateTo/:departureStation/:arrivalStation/:numberOfPassengers/:isRoundTrip/:returnDate
-    return "/search/" + search.date_departure + "/" + search.departure_station.id + "/" + search.arrival_station.id + "/" + search.number_of_passengers + "/" + search.isRoundTrip + "/" + search.date_return
+    return "/search/" + search.date_departure + "/" + search.departure_station._id + "/" + search.arrival_station._id + "/" + search.number_of_passengers + "/" + search.isRoundTrip + "/" + search.date_return
 
 }
 
@@ -108,6 +93,6 @@ export const getStationFromId = async (id: string) : Promise<Station> => {
     const idStation = parseInt(id)
 
     const stations = await getStations()
-    return stations.find((station) => station.id === idStation)!
+    return stations.find((station) => station._id === idStation)!
     
 }

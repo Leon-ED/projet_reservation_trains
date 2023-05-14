@@ -52,7 +52,7 @@ export const SearchComponent = () => {
     }, [])
 
     const stationsList = stations.map((station) => {
-        return <AutoCompleteStation key={station.id} {...station} />
+        return <AutoCompleteStation key={station._id} {...station} />
     })
 
 
