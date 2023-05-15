@@ -39,3 +39,11 @@ export interface SearchType{
 
 }
 
+export interface MessageProps{
+    titre:string
+    message:string
+    type:string
+    redirectTo:string
+    redirectText:string
+
+}

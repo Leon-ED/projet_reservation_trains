@@ -2,7 +2,7 @@ import { SearchType, Station, Train } from "./types"
 const API_URL = import.meta.env.VITE_API_URL
 
 const noisyStation: Station = {
-    _id: 93160,
+    _id: "93160",
     name: "Noisy-le-Grand - Mont d'Est",
     city: "Noisy-le-Grand",
     region: "Ile de France",
@@ -103,7 +103,7 @@ export const getStationsFromList = async (idList: string[]) : Promise<Station[]>
     }
     )
     return stationList
-    
+
     
 }
 

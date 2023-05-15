@@ -5,6 +5,7 @@ import { SearchType, Station, Train } from "../utils/types"
 import { SearchRecap } from "../components/SearchRecap"
 import { SearchComponent } from "../components/Search"
 import { DisplayTrainInSearch } from "../components/Train"
+import { MessageComp } from "../components/MessageComp"
 
 export const SearchPage = () => {
 
@@ -16,13 +17,15 @@ export const SearchPage = () => {
         if (!departureStationID || !arrivalStationID)
             return
 
+
+
         const main = async () => {
             const [departureStation, arrivalStation] = await getStationsFromList([departureStationID, arrivalStationID])
             setDepartureStation(departureStation)
             setArrivalStation(arrivalStation)
 
             if (!numberOfPassengers || !dateFrom || !departureStation || !arrivalStation || !returnDate)
-            return
+                return
 
             const search: SearchType = { date_departure: dateFrom, departure_station: departureStation, arrival_station: arrivalStation, number_of_passengers: parseInt(numberOfPassengers), isRoundTrip: isRoundTripBool, date_return: returnDate }
             setTrainList(await getTrainFromResult(search))
@@ -41,6 +44,9 @@ export const SearchPage = () => {
     if (!departureStation || !arrivalStation || !dateFrom || !numberOfPassengers || !returnDate) {
         return <div>Erreur</div>
     }
+    if (departureStationID === arrivalStationID) {
+        return <MessageComp titre="Une erreur est survenue" message="Il n'est pas possible d'avoir la gare de départ et d'arrivée identiques" type="error" redirectTo="/" redirectText="Retour à l'accueil" />
+    }
 
     const trainsComponent = trainList?.map((train) => {
         return <DisplayTrainInSearch train={train} />
@@ -54,7 +60,7 @@ export const SearchPage = () => {
             <section>
                 <h2>Liste des trains</h2>
                 <div className="train_list">
-                {trainsComponent}
+                    {trainsComponent}
 
                 </div>
             </section>

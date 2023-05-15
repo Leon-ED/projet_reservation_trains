@@ -99,7 +99,7 @@ section {
   margin-bottom: 10px;
 }
 
-p{
+section>  p{
   font-family: Parisine-regular;
   max-width: 50%;
   margin: 0;
@@ -241,4 +241,49 @@ figure img{
   }
 
   
+}
+
+.msg_component{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  width: 30%;
+  margin: auto;
+  background-color: var(--white);
+  padding: 10px;
+  border-radius: 15px;
+
+}
+
+.msg_component p{
+
+  text-align: center;
+}
+
+
+
+.msg_error{
+  color: var(--red);
+  font-size: 1.2em;
+  font-weight: bold;
+}
+
+.msg_success{
+  color: var(--green);
+  font-size: 1.2em;
+  font-weight: bold;
+}
+
+.msg_warning{
+  color: var(--yellow);
+  font-size: 1.2em;
+  font-weight: bold;
+}
+
+.msg_info{
+  color: var(--blue);
+  font-size: 1.2em;
+  font-weight: bold;
 }
