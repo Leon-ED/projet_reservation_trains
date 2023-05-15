@@ -88,16 +88,22 @@ export const stationFullName = (station: Station) => {
 
 
 export const getStationFromId = async (id: string) : Promise<Station> => {
-    const idStation = parseInt(id)
-
     const stations = await getStations()
-    return stations.find((station) => station._id === idStation)!
+    return stations.find((station) => station._id === id)!
     
 }
 
 export const getStationsFromList = async (idList: string[]) : Promise<Station[]> => {
     const stations = await getStations()
-    return stations.filter((station) => idList.includes(station._id.toString()))
+    // create list of same size with null values
+    const stationList = new Array<Station>(idList.length).fill({} as Station)
+    // for each id in idList, find the corresponding station and add it to the list
+    idList.forEach((id, index) => {
+        stationList[index] = stations.find((station) => station._id === id)!
+    }
+    )
+    return stationList
+    
     
 }
 
