@@ -19,8 +19,9 @@ dist-ssr
 .DS_Store
 *.suo
 *.ntvs*
+env.js
 *.njsproj
 *.sln
 *.sw?
-
+vendor/
 /vendor

@@ -1,6 +1,5 @@
 import { SearchType, Station, Train } from "./types"
-
-export const HOST = "http://localhost:5173"
+const API_URL = import.meta.env.VITE_API_URL
 
 const noisyStation: Station = {
     _id: 93160,
@@ -12,11 +11,10 @@ const noisyStation: Station = {
 
 
 export const getStations = async () : Promise<Station[]> => {
-    // TODO : Appel API
+    
 
-    // call the stations.php api by a get request
 
-    const response = await fetch(`http://localhost:80/projet_reservation_trains/src/api/stations.php`)
+    const response = await fetch(API_URL + "/stations.php")
     const stations = await response.json()
     
     return stations
@@ -96,3 +94,10 @@ export const getStationFromId = async (id: string) : Promise<Station> => {
     return stations.find((station) => station._id === idStation)!
     
 }
+
+export const getStationsFromList = async (idList: string[]) : Promise<Station[]> => {
+    const stations = await getStations()
+    return stations.filter((station) => idList.includes(station._id.toString()))
+    
+}
+

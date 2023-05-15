@@ -8,7 +8,6 @@ include '../includes/base.php';
 // set the collection Stations
 
 // Allow CORS
-require '../includes/cors.php';
 
 
 $stations = $client->projet_reservation_trains->selectCollection('Stations');

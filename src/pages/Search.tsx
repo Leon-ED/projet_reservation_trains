@@ -1,5 +1,5 @@
 import { useParams } from "react-router-dom"
-import { getStationFromId, getTrainFromResult } from "../utils/functions"
+import { getStationFromId, getStationsFromList, getTrainFromResult } from "../utils/functions"
 import { useEffect, useState } from "react"
 import { SearchType, Station, Train } from "../utils/types"
 import { SearchRecap } from "../components/SearchRecap"
@@ -13,29 +13,25 @@ export const SearchPage = () => {
 
 
     useEffect(() => {
-
         if (!departureStationID || !arrivalStationID)
             return
-        const getStations = async () => {
-            const departureStation = await getStationFromId(departureStationID)
-            const arrivalStation = await getStationFromId(arrivalStationID)
+
+        const main = async () => {
+            const [departureStation, arrivalStation] = await getStationsFromList([departureStationID, arrivalStationID])
             setDepartureStation(departureStation)
             setArrivalStation(arrivalStation)
-        }
-        getStations()
-    }, [])
 
-    useEffect(() => {
-
-        const getTrains = async () => {
             if (!numberOfPassengers || !dateFrom || !departureStation || !arrivalStation || !returnDate)
-                return
+            return
+
             const search: SearchType = { date_departure: dateFrom, departure_station: departureStation, arrival_station: arrivalStation, number_of_passengers: parseInt(numberOfPassengers), isRoundTrip: isRoundTripBool, date_return: returnDate }
             setTrainList(await getTrainFromResult(search))
+
         }
-        getTrains()
+        main()
 
     }, [])
+
 
     const [trainList, setTrainList] = useState<Train[]>();
 
@@ -68,3 +64,4 @@ export const SearchPage = () => {
     )
 
 }
+
