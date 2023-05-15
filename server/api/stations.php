@@ -32,7 +32,8 @@ $stationsArray = array();
 
 // for each station
 foreach ($cursor as $station) {
-    // add the station to the array
+    // id is an object, we need to convert it to string
+    $station->_id = (string)$station->_id;
     array_push($stationsArray, $station);
 }
 
