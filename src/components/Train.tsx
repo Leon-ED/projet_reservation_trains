@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router-dom"
-import {  Train } from "../utils/types"
+import { Train } from "../utils/types"
 
 
 
@@ -12,15 +12,9 @@ export const DisplayTrainInSearch = ({ train }: { train: Train }) => {
         let hours = parseInt(timeArrival[0]) - parseInt(timeDeparture[0])
         let minutes = parseInt(timeArrival[1]) - parseInt(timeDeparture[1])
         console.log(hours, minutes)
-    
-    
+
+
         return `${hours}h${minutes}`
-
-        
-
-
-
-
     }
 
     let arrets = ""
@@ -52,8 +46,33 @@ export const DisplayTrainInSearch = ({ train }: { train: Train }) => {
 
 
     function handleTrainClick() {
-        navigate("/reservation/" + train.id)
+        navigate("/reservation/" + train._id)
     }
+}
+
+export const TrainRecap = ({ train }: { train: Train }) => {
+
+
+
+
+    return (
+        <section className="trainRecap">
+            <h3>Informations du {train.train_type} n°{train.train_number}</h3>
+            <div className="trainRecap__body">
+                <p><strong>Départ de </strong>{train.departure_station.name} à {train.time_departure}</p>
+                <p><strong>Arrivée à </strong>{train.arrival_station.name} à {train.time_arrival}</p>
+                <details>
+                    <summary> {train.stopsList.length} arrêt(s)</summary>
+                    <ul>
+                        {train.stopsList.map((station, index) => {
+                            return <li key={index}>{station.name}</li>
+                        })}
+                    </ul>
+                </details>
+            </div>
+        </section>
+
+    )
 
 
 

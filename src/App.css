@@ -215,33 +215,7 @@ figure img{
 }
 
 
-@media screen and (max-width: 768px) {
-  section {
-    width: 90%;
-  }
-  .flex-row
-  {
-    flex-direction: column;
-  }
-  p{
-    max-width: 100%;
-  }
-  img{
-    width: 100%;
-    aspect-ratio: 1/1;
-  }
-  nav{
-    flex-direction: column;
-  }
-  nav img{
-    display: none;
-  }
-  nav div{
-    flex-direction: column;
-  }
 
-  
-}
 
 .msg_component{
   display: flex;
@@ -286,4 +260,104 @@ figure img{
   color: var(--blue);
   font-size: 1.2em;
   font-weight: bold;
+}
+
+.seatsChooser{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  background-color: var(--white);
+  padding: 10px;
+  border-radius: 15px;
+}
+
+.seatsChooser__body{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  width: 100%;
+}
+
+.seatChooser_train{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+
+
+.seatChooser_train__car__seats{
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  gap: 10px;
+  width: 100%;
+  height: 100%;
+}
+
+
+
+
+.seatChooser_train__car__seats__seat{
+  width: 40px;
+  height: 40px;
+  border: 1px solid var(--bg2);
+  user-select: none;
+  display: flex;
+  cursor: pointer;
+  align-items: center;
+  justify-content: center;
+}
+
+
+.seatChooser_train__car__seats__seat--taken{
+  background-color: var(--red);
+  cursor: not-allowed;
+  color:white;
+}
+
+.seatChooser_train__car__seats__seat--selected{
+  background-color: var(--green);
+  cursor: grab;
+  color:white;
+}
+
+.seat_mt{
+  margin-top: 40px;
+}
+
+@media screen and (max-width: 768px) {
+  section {
+    width: 90%;
+  }
+  .flex-row
+  {
+    flex-direction: column;
+  }
+  p{
+    max-width: 100%;
+  }
+  img{
+    width: 100%;
+    aspect-ratio: 1/1;
+  }
+  nav{
+    flex-direction: column;
+  }
+  nav img{
+    display: none;
+  }
+  nav div{
+    flex-direction: column;
+  }
+  .seatChooser_train__car__seats__seat{
+    width: 15px !important;
+    font-size: 8px !important;
+    height: 15px !important;
+  }
+  
 }

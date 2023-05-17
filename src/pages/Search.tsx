@@ -1,5 +1,5 @@
 import { useParams } from "react-router-dom"
-import { getStationFromId, getStationsFromList, getTrainFromResult } from "../utils/functions"
+import { getStationFromId, getStationsFromList, getTrainsFromResult } from "../utils/functions"
 import { useEffect, useState } from "react"
 import { SearchType, Station, Train } from "../utils/types"
 import { SearchRecap } from "../components/SearchRecap"
@@ -12,13 +12,9 @@ export const SearchPage = () => {
     const { dateFrom, departureStationID, arrivalStationID, numberOfPassengers, isRoundTrip, returnDate } = useParams()
     const isRoundTripBool = isRoundTrip == "true" ? true : false
 
-
     useEffect(() => {
         if (!departureStationID || !arrivalStationID)
             return
-
-
-
         const main = async () => {
             const [departureStation, arrivalStation] = await getStationsFromList([departureStationID, arrivalStationID])
             setDepartureStation(departureStation)
@@ -28,7 +24,9 @@ export const SearchPage = () => {
                 return
 
             const search: SearchType = { date_departure: dateFrom, departure_station: departureStation, arrival_station: arrivalStation, number_of_passengers: parseInt(numberOfPassengers), isRoundTrip: isRoundTripBool, date_return: returnDate }
-            setTrainList(await getTrainFromResult(search))
+            setTrainList(await getTrainsFromResult(search))
+            localStorage.setItem("search", JSON.stringify(search))
+
 
         }
         main()

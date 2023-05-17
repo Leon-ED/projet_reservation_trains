@@ -8,7 +8,7 @@ export interface Station{
 }
 
 export interface Train{
-    id:number
+    _id:string
     train_number:string
     train_type:string
 
@@ -25,6 +25,20 @@ export interface Train{
     operator:string
     price:number
 }
+
+export interface TrainConfig{
+    _id:string
+    train_number:string
+    seats_per_car:number
+    number_of_cars:number
+    seats_configuration:string
+
+    total_seats:number
+    taken_seats:number[]
+
+}
+
+
 
 export interface SearchType{
     departure_station:Station
