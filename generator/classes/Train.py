@@ -24,7 +24,6 @@ def loadStations():
     
     return terminus_stations, passing_stations
 
-TERMINUS_STATIONS,PASSING_STATIONS = loadStations()
 
 
 
@@ -62,14 +61,14 @@ class Train:
     def set_random_taken_seats(self):
         self.taken_seats = random.sample(range(1, self.total_seats), self.total_seats//2)
 
-    def set_end_stations(self):
+    def set_end_stations(self,TERMINUS_STATIONS):
         self.departure_station = random.choice(TERMINUS_STATIONS)
         arrival_station = random.choice(TERMINUS_STATIONS)
         while arrival_station == self.departure_station:
             arrival_station = random.choice(TERMINUS_STATIONS)
         self.arrival_station = arrival_station
     
-    def set_stops(self):
+    def set_stops(self,PASSING_STATIONS):
         self.stopsList = []
         for i in range(random.randint(MIN_STOPS, MAX_STOPS)):
             station = random.choice(PASSING_STATIONS)
@@ -81,9 +80,9 @@ class Train:
 
 class TrainGenerator:
 
-    def __init__(self):
-        pass
-
+    def __init__(self,TERMINUS_STATIONS,PASSING_STATIONS):
+        self.TERMINUS_STATIONS = TERMINUS_STATIONS
+        self.PASSING_STATIONS = PASSING_STATIONS
     def generate(self, train_per_day, number_of_days):
         trains = []
         for i in range(number_of_days):
@@ -95,8 +94,8 @@ class TrainGenerator:
 
 
                 train.set_times(f"{random.randint(1,19)}:{random.randint(0,59)}",f"{random.randint(21,23)}:{random.randint(0,59)}")
-                train.set_end_stations()
-                train.set_stops()
+                train.set_end_stations(self.TERMINUS_STATIONS)
+                train.set_stops(self.PASSING_STATIONS)
                 train.set_config(random.randint(MIN_CARS,MAX_CARS))
                 train.set_random_taken_seats()
                 trains.append(train)
