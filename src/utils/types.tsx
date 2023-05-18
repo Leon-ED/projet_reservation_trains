@@ -31,7 +31,6 @@ export interface TrainConfig{
     train_number:string
     seats_per_car:number
     number_of_cars:number
-    seats_configuration:string
 
     total_seats:number
     taken_seats:number[]

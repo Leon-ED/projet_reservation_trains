@@ -23,7 +23,10 @@ export const getStations = async (): Promise<Station[]> => {
 
 export const getTrainsFromResult = async (search: SearchType): Promise<Train[]> => {
     const { departure_station, arrival_station, date_departure } = search
+    const response = await fetch(API_URL + "/trainsList.php?departure_station=" + departure_station._id + "&arrival_station=" + arrival_station._id + "&date_departure=" + date_departure)
+    const trains = await response.json()
 
+    return trains
     // TODO : Appel API
     return [
         {
@@ -103,14 +106,17 @@ export const getStationsFromList = async (idList: string[]): Promise<Station[]> 
         stationList[index] = stations.find((station) => station._id === id)!
     }
     )
+    console.log(stationList)
+
     return stationList
 
 
 }
 
 export const getTrainFromId = async (id: string): Promise<Train> => {
-    // const response = await fetch(API_URL + "/trains.php?id=" + id)
-    // const train = await response.json()
+    const response = await fetch(API_URL + "/train.php?id=" + id)
+    const train = await response.json()
+    return train
 
     return {
         "_id": "3",
@@ -140,7 +146,7 @@ export const getTrainConfigFromId = async (id: string): Promise<TrainConfig> => 
 
         number_of_cars: 3,
         seats_per_car: 48,
-        seats_configuration: "2+3",
+
 
         total_seats: 330,
         taken_seats: [1, 13, 40, 44, 32, 36, 48, 5, 21, 12]

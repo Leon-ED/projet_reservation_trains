@@ -20,6 +20,8 @@ dist-ssr
 *.suo
 *.ntvs*
 env.js
+__pycache__
+generator/out/*.json
 *.njsproj
 *.sln
 *.sw?

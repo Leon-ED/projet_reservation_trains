@@ -11,7 +11,6 @@ export const SearchPage = () => {
 
     const { dateFrom, departureStationID, arrivalStationID, numberOfPassengers, isRoundTrip, returnDate } = useParams()
     const isRoundTripBool = isRoundTrip == "true" ? true : false
-
     useEffect(() => {
         if (!departureStationID || !arrivalStationID)
             return

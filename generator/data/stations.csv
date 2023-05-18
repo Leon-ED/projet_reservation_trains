@@ -1,0 +1,76 @@
+Lyon-Perrache;Lyon;Auvergne-Rhône-Alpes;terminus
+Lyon-Part-Dieu;Lyon;Auvergne-Rhône-Alpes;passage
+Lyon-Saint-Exupéry TGV;Lyon;Auvergne-Rhône-Alpes;passage
+Lyon-Saint-Paul;Lyon;Auvergne-Rhône-Alpes;passage
+Lyon-Vaise;Lyon;Auvergne-Rhône-Alpes;passage
+Lyon-Jean Macé;Lyon;Auvergne-Rhône-Alpes;passage
+Paris-Gare-de-Lyon;Paris;Île-de-France;terminus
+Paris-Montparnasse 1-2;Paris;Île-de-France;terminus
+Paris-Nord;Paris;Île-de-France;terminus
+Paris-Saint-Lazare;Paris;Île-de-France;terminus
+Paris-Austerlitz;Paris;Île-de-France;terminus
+Paris-Est;Paris;Île-de-France;terminus
+Paris-Bercy;Paris;Île-de-France;terminus
+Marne-la-Vallée-Chessy;Marne-la-Vallée;Île-de-France;passage
+Massy-TGV;Massy;Île-de-France;passage
+Massy-Palaiseau;Massy;Île-de-France;passage
+Marseille-Saint-Charles;Marseille;Provence-Alpes-Côte d'Azur;terminus
+Marseille-Blancarde;Marseille;Provence-Alpes-Côte d'Azur;passage
+Marseille-Saint-Antoine;Marseille;Provence-Alpes-Côte d'Azur;passage
+Marseille-Saint-Joseph;Marseille;Provence-Alpes-Côte d'Azur;passage
+Bordeaux-Saint-Jean;Bordeaux;Nouvelle-Aquitaine;terminus
+Bordeaux-Benauge;Bordeaux;Nouvelle-Aquitaine;passage
+Bordeaux-Bastide;Bordeaux;Nouvelle-Aquitaine;passage
+Bordeaux-Cenon;Bordeaux;Nouvelle-Aquitaine;passage
+Lille-Europe;Lille;Hauts-de-France;terminus
+Lille-Flandres;Lille;Hauts-de-France;terminus
+Lille-Porte-de-Douai;Lille;Hauts-de-France;passage
+Calais-Ville;Calais;Hauts-de-France;terminus
+Calais-Fréthun;Calais;Hauts-de-France;passage
+Dunkerque;Dunkerque;Hauts-de-France;terminus
+Bruxelles-Midi;Bruxelles;Belgique;terminus
+Bruxelles-Nord;Bruxelles;Belgique;terminus
+Bruxelles-Central;Bruxelles;Belgique;passage
+Oostende;Oostende;Belgique;terminus
+Tourcoing;Tourcoing;Hauts-de-France;terminus
+Toulouse-Matabiau;Toulouse;Occitanie;terminus
+Toulouse-Saint-Agne;Toulouse;Occitanie;passage
+Reims;Reims;Grand Est;terminus
+Reims Franchet-d'Esperey;Reims;Grand Est;passage
+Reims-Maison-Blanche;Reims;Grand Est;passage
+Reims-Marchandeau;Reims;Grand Est;passage
+Strasbourg-Ville;Strasbourg;Grand Est;terminus
+Strasbourg-Krimmeri-Meinau;Strasbourg;Grand Est;passage
+Aachen Hbf;Aachen;Allemagne;terminus
+Aachen West;Aachen;Allemagne;passage
+Aachen-Rothe Erde;Aachen;Allemagne;passage
+Cologne Hbf;Cologne;Allemagne;terminus
+Cologne Messe/Deutz;Cologne;Allemagne;passage
+Berlin Hbf;Berlin;Allemagne;terminus
+Versailles-Chantiers;Versailles;Île-de-France;terminus
+Versailles-Rive-Droite;Versailles;Île-de-France;passage
+Versailles-Château-Rive-Gauche;Versailles;Île-de-France;passage
+Orléans;Orléans;Centre-Val de Loire;terminus
+Orléans-Les Aubrais;Orléans;Centre-Val de Loire;passage
+Dourdan;Dourdan;Île-de-France;passage
+Tours;Tours;Centre-Val de Loire;terminus
+Poitiers;Poitiers;Nouvelle-Aquitaine;terminus
+Brest;Brest;Bretagne;terminus
+Rennes;Rennes;Bretagne;terminus
+Nantes;Nantes;Pays de la Loire;terminus
+Angers-Saint-Laud;Angers;Pays de la Loire;terminus
+Le Mans;Le Mans;Pays de la Loire;terminus
+Laval;Laval;Pays de la Loire;terminus
+Poitiers Futuroscope;Poitiers;Nouvelle-Aquitaine;passage
+Poitiers-Biard;Poitiers;Nouvelle-Aquitaine;passage
+La Rochelle-Ville;La Rochelle;Nouvelle-Aquitaine;terminus
+La Rochelle-Porte Dauphine;La Rochelle;Nouvelle-Aquitaine;passage
+Roissy-Charles-de-Gaulle 2 TGV;Roissy-en-France;Île-de-France;terminus
+Roissy-Charles-de-Gaulle 1;Roissy-en-France;Île-de-France;passage
+Milan Centrale;Milan;Italie;terminus
+Milan Porta Garibaldi;Milan;Italie;passage
+London St Pancras;Londres;Royaume-Uni;terminus
+London Euston;Londres;Royaume-Uni;terminus
+London Victoria;Londres;Royaume-Uni;terminus
+Amsterdam Centraal;Amsterdam;Pays-Bas;terminus
+Amsterdam Zuid;Amsterdam;Pays-Bas;passage

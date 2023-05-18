@@ -1,8 +1,8 @@
-import { useState } from "react"
-import {  TrainConfig } from "../utils/types"
+import { useEffect, useState } from "react"
+import { TrainConfig } from "../utils/types"
 import { MessageComp } from "./MessageComp"
 
-export const SeatsChooser = ({ trainCfg, numberOfPassengers }: { trainCfg: TrainConfig, numberOfPassengers: number }) => {
+export const SeatsChooser = ({ trainCfg, numberOfPassengers, reservedSeats }: { trainCfg: TrainConfig, numberOfPassengers: number, reservedSeats: Function }) => {
     const takenSeats = trainCfg.taken_seats
     const totalSeats = trainCfg.total_seats
     const seatsPerCar = trainCfg.seats_per_car
@@ -19,14 +19,21 @@ export const SeatsChooser = ({ trainCfg, numberOfPassengers }: { trainCfg: Train
             setSelectedSeats(selectedSeats.filter((seat: number) => seat !== seatNumber))
         } else {
             if (selectedSeats.length >= numberOfPassengers) {
-                return; 
+                return;
             }
             setSelectedSeats([...selectedSeats, seatNumber])
         }
+    }
+    useEffect(() => {
+        reservedSeats(selectedSeats)
         if (selectedSeats.length === numberOfPassengers) {
             setFinished(true)
+        } else {
+            setFinished(false)
         }
-    }
+    }, [selectedSeats])
+
+
 
     return (
         <section className="seatsChooser">
