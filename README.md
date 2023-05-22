@@ -10,6 +10,14 @@ Se mettre dans le dossier créé avec :
 ### Installer les dépendances node avec
 <code>npm install</code>
 
+### Installer MongoDB sur php :
+
+Copier le fichier php_mongodb.dll dans le dossier et le coller dans le dossier /ext où est intallé php
+
+Attention : La version de php et de celle du .dll de mongo db doit etre compatible
+
+
+
 ### Installer les dépendances php avec
 <code>cd server/</code>
 
