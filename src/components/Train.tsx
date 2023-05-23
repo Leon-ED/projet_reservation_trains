@@ -18,10 +18,10 @@ export const DisplayTrainInSearch = ({ train }: { train: Train }) => {
     }
 
     let arrets = ""
-    if (train.stopsList.length === 2) {
+    if (train.stopsList.length === 0) {
         arrets = "Train direct"
     } else {
-        arrets = train.stopsList.length - 2 + " arrêt(s)"
+        arrets = train.stopsList.length  + " arrêt(s)"
     }
     const navigate = useNavigate()
 

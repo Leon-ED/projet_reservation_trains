@@ -6,7 +6,7 @@ from classes.Train import *
 
 if __name__ == "__main__":
     
-    # generator = StationsGenerator("data/stations.csv").generate().toJSON("out/stations.json")
+    generator = StationsGenerator("data/stations.csv").generate().toJSON("out/stations.json")
 
     TERMINUS_STATIONS,PASSING_STATIONS = loadStations()
-    TrainGenerator(TERMINUS_STATIONS,PASSING_STATIONS).generate(train_per_day=200,number_of_days=10).toJSON("out/trains.json")
+    TrainGenerator(TERMINUS_STATIONS,PASSING_STATIONS).generate(train_per_day=500,number_of_days=10).toJSON("out/trains.json")
