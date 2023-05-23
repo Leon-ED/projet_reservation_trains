@@ -2,6 +2,7 @@
 require ('../vendor/autoload.php');
 use MongoDB\Client;
 use MongoDB\Driver\ServerApi;
+error_reporting(0);
 
 // Replace the placeholder with your Atlas connection string
 $uri = 'mongodb+srv://admin:admin@projet-reservation-trai.607c19n.mongodb.net/?retryWrites=true&w=majority';
