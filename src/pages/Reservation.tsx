@@ -6,6 +6,7 @@ import { SearchType, Train, TrainConfig } from "../utils/types";
 import { TrainRecap } from "../components/Train";
 import { SeatsChooser } from "../components/SeatsChooser";
 import { PeopleChooser } from "../components/PeopleChooser";
+import { RecapViewer } from "../components/RecapViewer";
 
 
 export const ReservationPage = () => {
@@ -15,10 +16,27 @@ export const ReservationPage = () => {
     const [search, setSearch] = useState<SearchType>();
     const [seats, setSeats] = useState<number[]>([]);
     const [showPeopleChooser, setShowPeopleChooser] = useState<boolean>(false);
+    const [showRecap, setShowRecap] = useState<boolean>(false);
 
     useEffect(() => {
         if (!idTrain)
             return
+
+        if (idTrain === "recap") {
+            setShowRecap(true)
+            // get the train object from the local storage
+            const trainTest: any = JSON.parse(localStorage.getItem("train") || "{}")
+            console.log(trainTest)
+            return
+        }
+        else if (idTrain === "clients"){
+            setShowPeopleChooser(true)
+            return
+        }
+        
+        setShowRecap(false)
+        setShowPeopleChooser(false)
+
         const main = async () => {
             const trainTest: any = await getTrainFromId(idTrain)
             const trainCfg: TrainConfig = {
@@ -36,7 +54,8 @@ export const ReservationPage = () => {
                 return
             setTrain(trainTest)
 
-
+            // save to the local storage the train object
+            localStorage.setItem("train", JSON.stringify(trainTest))
 
             const searchTest: SearchType = JSON.parse(localStorage.getItem("search") || "{}")
             if (!searchTest)
@@ -71,10 +90,11 @@ export const ReservationPage = () => {
             </section>
 
             {train && !showPeopleChooser ? <TrainRecap train={train} /> : <></>}
-            {!train && !showPeopleChooser ? <MessageComp titre="Erreur" message="Le train demandé n'existe pas" type="error" redirectTo="/" redirectText="Retour à l'accueil" /> : <></>}
+            {!train && !showPeopleChooser && !showRecap ? <MessageComp titre="Erreur" message="Le train demandé n'existe pas" type="error" redirectTo="/" redirectText="Retour à l'accueil" /> : <></>}
             {trainConfig && !showPeopleChooser && search?.number_of_passengers ? <SeatsChooser trainCfg={trainConfig} numberOfPassengers={search?.number_of_passengers} reservedSeats={(seats: number[]) => { setSeats(seats) }} /> : <></>}
             {!trainConfig && !showPeopleChooser && search?.number_of_passengers ? <MessageComp titre="Erreur" message="Le train demandé n'existe pas" type="error" redirectTo="/" redirectText="Retour à l'accueil" /> : <></>}
             {showPeopleChooser && <PeopleChooser numberOfPassengers={search?.number_of_passengers || 0} reservedSeats={seats} />}
+            {showRecap && <RecapViewer />}
 
         </>
 

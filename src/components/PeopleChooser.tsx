@@ -16,6 +16,7 @@ export const PeopleChooser = ({ numberOfPassengers, reservedSeats }: { numberOfP
                 <button onClick={() => {setIsClient(false)}}>Non</button></>)
             }
             {isClient && <input type="text" placeholder="Entrez votre numéro d'abonné"/>}
+            {isClient == false && <ClientInfoForm />}
             
 
 

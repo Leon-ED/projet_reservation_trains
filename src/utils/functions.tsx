@@ -114,7 +114,7 @@ export const getStationsFromList = async (idList: string[]): Promise<Station[]> 
 }
 
 export const getTrainFromId = async (id: string): Promise<Train> => {
-    const response = await fetch(API_URL + "/train.php?id=" + id)
+    const response = await fetch(API_URL + "train.php?id=" + id)
     const train = await response.json()
     return train
 
