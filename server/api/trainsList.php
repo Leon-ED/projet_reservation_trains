@@ -23,8 +23,8 @@ $trains = $client->projet_reservation_trains->selectCollection('Trains');
 
 // find the trains that departs from the departure station or stops at the departure station and arrives at the arrival station or stops at the arrival station
 $query = array(
-    "departure_station._id" => $departureStationId,
-    "arrival_station._id" => $arrivalStationId,
+    "departure_station" => $departureStationId,
+    "arrival_station" => $arrivalStationId,
     "date_departure" => $date
 );
 // var_dump(json_encode($query));
