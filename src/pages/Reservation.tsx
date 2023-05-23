@@ -76,8 +76,6 @@ export const ReservationPage = () => {
             {!trainConfig && !showPeopleChooser && search?.number_of_passengers ? <MessageComp titre="Erreur" message="Le train demandé n'existe pas" type="error" redirectTo="/" redirectText="Retour à l'accueil" /> : <></>}
             {showPeopleChooser && <PeopleChooser numberOfPassengers={search?.number_of_passengers || 0} reservedSeats={seats} />}
 
-
-
         </>
 
 
