@@ -16,4 +16,18 @@ $query = array(
 );
 $cursor = $trains->findOne($query);
 
+// Récupérer pour chaque train l'objet Station à la place de l'id
+$stations = $client->projet_reservation_trains->selectCollection('Stations');
+$cursor["departure_station"] = $stations->findOne(array("_id" => $cursor["departure_station"]));
+$cursor["arrival_station"] = $stations->findOne(array("_id" => $cursor["arrival_station"]));
+
+
+// Egalement pour les stations ou le train s'arrête
+$stopsList = $cursor["stopsList"];
+$cursor["stopsList"] = array();
+foreach($stopsList as $stop){
+    $cursor["stopsList"][] = $stations->findOne(array("_id" => $stop));
+}
+
+
 echo json_encode($cursor);
