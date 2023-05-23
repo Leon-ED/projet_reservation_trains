@@ -3,7 +3,7 @@ import { MessageComp } from "../components/MessageComp";
 import { getTrainFromId } from "../utils/functions";
 import { useEffect, useState } from "react";
 import { SearchType, Train, TrainConfig } from "../utils/types";
-import {  TrainRecap } from "../components/Train";
+import { TrainRecap } from "../components/Train";
 import { SeatsChooser } from "../components/SeatsChooser";
 import { PeopleChooser } from "../components/PeopleChooser";
 
@@ -72,16 +72,8 @@ export const ReservationPage = () => {
 
             {train && !showPeopleChooser ? <TrainRecap train={train} /> : <></>}
             {!train && !showPeopleChooser ? <MessageComp titre="Erreur" message="Le train demandé n'existe pas" type="error" redirectTo="/" redirectText="Retour à l'accueil" /> : <></>}
-            {trainConfig && !showPeopleChooser && search?.number_of_passengers ?
-                <SeatsChooser trainCfg={trainConfig} numberOfPassengers={search?.number_of_passengers} reservedSeats={(seats: number[]) => { setSeats(seats) }} /> : <></>}
-
-
-
-            {/* {
-                (trainConfig && search?.number_of_passengers) ?
-                    <SeatsChooser trainCfg={trainConfig} numberOfPassengers={search?.number_of_passengers} reservedSeats={(seats: number[]) => { setSeats(seats) }} />
-                    : <MessageComp titre="Erreur" message="Le train demandé n'existe pas" type="error" redirectTo="/" redirectText="Retour à l'accueil" />
-            } */}
+            {trainConfig && !showPeopleChooser && search?.number_of_passengers ? <SeatsChooser trainCfg={trainConfig} numberOfPassengers={search?.number_of_passengers} reservedSeats={(seats: number[]) => { setSeats(seats) }} /> : <></>}
+            {!trainConfig && !showPeopleChooser && search?.number_of_passengers ? <MessageComp titre="Erreur" message="Le train demandé n'existe pas" type="error" redirectTo="/" redirectText="Retour à l'accueil" /> : <></>}
             {showPeopleChooser && <PeopleChooser numberOfPassengers={search?.number_of_passengers || 0} reservedSeats={seats} />}
 
 
