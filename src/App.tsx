@@ -17,7 +17,7 @@ function App() {
         <Route path="/" element={<Index />} />
         <Route path="/search/:dateFrom/:departureStationID/:arrivalStationID/:numberOfPassengers/:isRoundTrip/:returnDate" element={<SearchPage />} />
         <Route path="/reservation/:idTrain" element={<ReservationPage /> } />
-        <Route path="/reservation/clients" element={<PeopleChooser numberOfPassengers={3} reservedSeats={() => {}} />}/>
+        <Route path="/reservation/clients" element={<ReservationPage />}/>
 
         <Route path="*" element={<MessageComp titre="Erreur 404" message="La page demandée n'existe pas" type="error" redirectTo="/" redirectText="Retour à l'accueil (sans vous perdre cette fois-ci)" />} />
       </Routes>

@@ -1,7 +1,7 @@
 import { useState } from "react"
 import { ClientInfoForm } from "./ClientInfoForm"
 
-export const PeopleChooser = ({ numberOfPassengers, reservedSeats }: { numberOfPassengers: number, reservedSeats: Function }) => {
+export const PeopleChooser = ({ numberOfPassengers, reservedSeats }: { numberOfPassengers: number, reservedSeats: number[] }) => {
     const [isClient, setIsClient] = useState<boolean | undefined>(undefined)
 
 
