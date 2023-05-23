@@ -12,24 +12,13 @@ OPERATORS = ["SNCF", "Eurostar", "Thalys", "TGV Lyria", "Ouigo","Véolia","Véol
 
 
 def loadStations():
-    terminus_stations = []
-    passing_stations = []
+    stations_list = []
     with open("out/stations.json", "r", encoding="utf-8") as f:
         stations = json.load(f)
         for station in stations:
-            if station["type"] == "terminus":
-                terminus_stations.append(station)
-            else:
-                passing_stations.append(station)
+            stations_list.append(station['_id'])
     
-    return terminus_stations, passing_stations
-
-
-
-
-
-
-
+    return stations_list
 
 
 class Train:
@@ -61,48 +50,55 @@ class Train:
     def set_random_taken_seats(self):
         self.taken_seats = random.sample(range(1, self.total_seats), self.total_seats//2)
 
-    def set_end_stations(self,TERMINUS_STATIONS):
-        self.departure_station = random.choice(TERMINUS_STATIONS)
-        arrival_station = random.choice(TERMINUS_STATIONS)
-        while arrival_station == self.departure_station:
-            arrival_station = random.choice(TERMINUS_STATIONS)
-        self.arrival_station = arrival_station
+    def set_start_station(self,start_station):
+        self.departure_station = start_station
+
+    def set_end_station(self,end_station):
+        self.arrival_station = end_station
     
-    def set_stops(self,PASSING_STATIONS):
-        self.stopsList = []
-        for i in range(random.randint(MIN_STOPS, MAX_STOPS)):
-            station = random.choice(PASSING_STATIONS)
-            if station not in self.stopsList and not any(station["city"] == s["city"] for s in self.stopsList):
-                self.stopsList.append(station)
+    def set_stops(self,start_station, end_station, STATIONS):
+        new_STATIONS = STATIONS[::]
+        new_STATIONS.remove(start_station)
+        new_STATIONS.remove(end_station)
 
+        number_of_stops = random.randint(MIN_STOPS,MAX_STOPS)
 
+        for i in range(number_of_stops):
+            station = new_STATIONS.pop(random.randint(0,len(new_STATIONS)-1))
+            self.stopsList.append(station)
 
 
 class TrainGenerator:
 
-    def __init__(self,TERMINUS_STATIONS,PASSING_STATIONS):
-        self.TERMINUS_STATIONS = TERMINUS_STATIONS
-        self.PASSING_STATIONS = PASSING_STATIONS
+    def __init__(self,STATIONS):
+        self.STATIONS = STATIONS
+
     def generate(self, train_per_day, number_of_days):
         trains = []
-        for i in range(number_of_days):
-            for j in range(train_per_day):
-                train = Train(i*train_per_day+j,random.choice(TRAIN_TYPES),random.randint(10,100),random.choice(OPERATORS))
-                # change date automaticl use object
-                day = time.strftime("%d/%m/%Y", time.localtime(time.time()+i*24*60*60))
-                train.set_dates(day,day)
-
-
-                train.set_times(f"{random.randint(1,19)}:{random.randint(0,59)}",f"{random.randint(21,23)}:{random.randint(0,59)}")
-                train.set_end_stations(self.TERMINUS_STATIONS)
-                train.set_stops(self.PASSING_STATIONS)
-                train.set_config(random.randint(MIN_CARS,MAX_CARS))
-                train.set_random_taken_seats()
-                trains.append(train)
+        count = 0
+        for start_station in self.STATIONS:
+            for i in range(number_of_days):
+                for j in range(train_per_day):
+                    for end_station in self.STATIONS:
+                        if start_station == end_station:
+                            continue
+                        
+                        # On génère j trajets pendant i jours pour chaque station de départ start_station jusqu'a end_station
+                        train = Train(count,random.choice(TRAIN_TYPES),random.randint(10,100),random.choice(OPERATORS))
+                        
+                        day = time.strftime("%d/%m/%Y", time.localtime(time.time()+i*24*60*60))
+                        train.set_dates(day,day)
+                        train.set_times(f"{random.randint(1,19)}:{random.randint(0,59)}",f"{random.randint(21,23)}:{random.randint(0,59)}")
+                        train.set_start_station(start_station)
+                        train.set_end_station(end_station)
+                        train.set_stops(start_station, end_station, self.STATIONS)
+                        train.set_config(random.randint(MIN_CARS,MAX_CARS))
+                        train.set_random_taken_seats()
+                        trains.append(train)
+                        
+                        count+=1
         self.trains = trains
         return self
-    
-
 
 
     def toJSON(self,path):
@@ -110,15 +106,7 @@ class TrainGenerator:
             json.dump(self.trains, f, default=lambda o: o.__dict__, 
             sort_keys=True, indent=4)
 
-        
-
-    
 
 
 if __name__ == "__main__":
     generator = TrainGenerator().generate(1,1).toJSON("out/trains.json")
-
-
-
-
-
