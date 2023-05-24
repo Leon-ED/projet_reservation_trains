@@ -1,5 +1,7 @@
 
 export const RecapViewer = () => {
+    // retrieve the train object from the local storage
+    const train: any = JSON.parse(localStorage.getItem("train") || "{}")
 
     // show the recap of the reservation
     return (
@@ -9,8 +11,8 @@ export const RecapViewer = () => {
 
             <div>
                 <div className="recapViewer__recap__train">
-                    <h4>Train n°</h4>
-                    <p>Paris - Marseille</p>
+                    <h4>{train.train_type} n°{train.train_number}</h4>
+                    <p>{train.departure_station.name} --&gt; {train.arrival_station.name}</p>
                     <p>Le 12/12/2021 à 12h12</p>
                 </div>
 
