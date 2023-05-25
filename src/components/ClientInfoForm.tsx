@@ -126,7 +126,7 @@ export const ClientInfoForm = () => {
 }
 
 async function storeToDB(name: string, surname: string, birthDate: string, email: string, phone: string, address: string, card: string) {
-    const url = `${API_URL}/client.php?add=insert&name=${name}&surname=${surname}&birthDate=${birthDate}&email=${email}&phone=${phone}&address=${address}&card=${card}`;
+    const url = `${API_URL}/client.php?action=add&name=${name}&surname=${surname}&birthDate=${birthDate}&email=${email}&phone=${phone}&address=${address}&card=${card}`;
     return fetch(url)
         .then(response => response.json())
         .then(data => {

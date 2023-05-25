@@ -99,9 +99,12 @@ function addToCart() {
     // ask client api if the client is in the database
     
     checkClient(id_card).then((data) => {
-        console.log(data)
+        if (data.length === 0) {
+            // show a message to the user
+            alert("Veuillez vous connecter pour ajouter un billet au panier")
+            return
+        }
     })
-    
 
     // get the cart from the current page
 }

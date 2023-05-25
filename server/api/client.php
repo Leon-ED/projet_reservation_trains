@@ -17,21 +17,22 @@ if (!isset($_GET["action"])) {
 }
 
 if ($_GET["action"] === "get") {
-    get();
+    get($client);
 } else if ($_GET["action"] === "add") {
-    add();
+    add($client);
 } else {
     echo "Invalid action";
     die();
 }
 
-function add() {
+function add($client) {
 
     if(!isset($_GET["name"]) && !isset($_GET["surname"]) && !isset($_GET["birthDate"]) && !isset($_GET["email"]) && !isset($_GET["phone"]) && !isset($_GET["address"]) && !isset($_GET["card"]) ){
         //  echo the missing parameters
         echo "Missing parameters";
         die();
     }
+    
     
     $name = $_GET["name"];
     $surname = $_GET["surname"];
@@ -40,7 +41,6 @@ function add() {
     $phone = $_GET["phone"];
     $address = $_GET["address"];
     $card = $_GET["card"];
-    
     $clients = $client->projet_reservation_trains->selectCollection('Clients');
     
     $query = array(
@@ -53,18 +53,15 @@ function add() {
         "card" => $card
     );
     $cursor = $clients->insertOne($query);
-    
     echo json_encode($cursor);
 }
 
-function get() {
+function get($client) {
     if (!isset($_GET["id_card"])) {
         echo "Missing parameters";
         die();
     }
-    echo "get";
     $id_card = $_GET["id_card"];
-    echo $id_card;
 
     $clients = $client->projet_reservation_trains->selectCollection('Clients');
 
