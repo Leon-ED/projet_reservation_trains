@@ -169,6 +169,24 @@ export const checkClient = async (id_card : String) => {
 
     const response = await fetch(API_URL + "client.php?action=get&id_card="+id_card)
     const client = await response.json()
+    if (client != "{}" && client != null && client.card === id_card){
+        return true
+    }
+    else {
+        return false
+    }
+}
 
-    return client
+export const storeToCartDB = async (id_card: string, selected_seats: any, selectedOptions: any, passengersInfo: any, price: number) => {
+    // convert the passengersInfo and selected_seats and selectedOptions object to a string
+    passengersInfo = JSON.stringify(passengersInfo)
+    selected_seats = JSON.stringify(selected_seats)
+    selectedOptions = JSON.stringify(selectedOptions)
+
+    const response = await fetch(API_URL + "cart.php?action=add&id_card=" + id_card + "&selected_seats=" + selected_seats + "&selectedOptions=" + selectedOptions + "&passengersInfo=" + passengersInfo + "&price=" + price)
+    const cart = await response.json()
+    if (cart != "{}" && cart != null){
+        return true
+    }
+    return cart
 }
