@@ -177,16 +177,78 @@ export const checkClient = async (id_card : String) => {
     }
 }
 
-export const storeToCartDB = async (id_card: string, selected_seats: any, selectedOptions: any, passengersInfo: any, price: number) => {
+export const storeToCartDB = async (id_card: string, selected_seats: any, selectedOptions: any, passengersInfo: any, price: number, ooid_train: String) => {
     // convert the passengersInfo and selected_seats and selectedOptions object to a string
     passengersInfo = JSON.stringify(passengersInfo)
     selected_seats = JSON.stringify(selected_seats)
     selectedOptions = JSON.stringify(selectedOptions)
 
-    const response = await fetch(API_URL + "cart.php?action=add&id_card=" + id_card + "&selected_seats=" + selected_seats + "&selectedOptions=" + selectedOptions + "&passengersInfo=" + passengersInfo + "&price=" + price)
+    const response = await fetch(API_URL + "cart.php?action=add&id_card=" + id_card + "&selected_seats=" + selected_seats + "&selectedOptions=" + selectedOptions + "&passengersInfo=" + passengersInfo + "&price=" + price + "&ooid_train=" + ooid_train)
     const cart = await response.json()
     if (cart != "{}" && cart != null){
         return true
     }
     return cart
 }
+
+export const getCartDB = async (id_card: string) => {
+    const response = await fetch(API_URL + "cart.php?action=get&id_card=" + id_card)
+    const cart = await response.json()
+
+    if (cart.length != 0) {
+        for (let i = 0; i < cart.length; i++) {
+            const response2 = await fetch(API_URL + "train.php?id=" + cart[i].ooid_train)
+            const train = await response2.json()
+            cart[i].train = train
+        }
+        return cart
+    }
+}
+
+export const deleteCartDB = async (ooid_cart: string) => {
+    const response = await fetch(API_URL + "cart.php?action=delete&ooid_cart=" + ooid_cart)
+    const cart = await response.json()
+
+    return cart
+}
+
+export const checkCode = async (code: string) => {
+    const response = await fetch(API_URL + "promo.php?code=" + code)
+    const codeCheck = await response.json()
+
+    return codeCheck
+}
+
+export const addReservation = async (cart:any, reduction:number, isPercentage:boolean) => {
+    var success: boolean
+    for (let i = 0; i < cart.length; i++) {
+        // convert the passengersInfo and selected_seats and selectedOptions object to a string
+        const id_card = cart[i].id_card
+        const ooid_train = cart[i].ooid_train
+        const selected_seats = JSON.stringify(cart[i].selected_seats)
+        const selectedOptions = JSON.stringify(cart[i].selectedOptions)
+        const passengersInfo = JSON.stringify(cart[i].passengersInfo)
+        if (isPercentage === true){
+            var price = cart[i].price - (cart[i].price * reduction / 100)
+        }
+        else {
+            var price = cart[i].price - reduction
+        }
+        const response = await fetch(API_URL + "reservation.php?action=add&id_card=" + id_card + "&selected_seats=" + selected_seats + "&selectedOptions=" + selectedOptions + "&passengersInfo=" + passengersInfo + "&price=" + price + "&ooid_train=" + ooid_train)
+        const req = await response.json()
+        success = req
+        if (success === false) {
+            return false
+        }
+
+    }
+    return true
+
+}
+
+export const removeCart = async (carts: any) => {
+    for (let i = 0; i < carts.length; i++) {
+        deleteCartDB(carts[i]._id.$oid)
+    }
+}
+

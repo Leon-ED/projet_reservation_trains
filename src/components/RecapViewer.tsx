@@ -114,13 +114,13 @@ export const RecapViewer = () => {
           <p>{totalPrice}€ ({totalPrice / train.selected_seats.length}€/personne)</p>
         </div>
       </div>
-      <button onClick={() => addToCart(passengersInfo, train.selected_seats,selectedOptions, totalPrice)}>Confirmer</button>
+      <button onClick={() => addToCart(passengersInfo, train.selected_seats,selectedOptions, totalPrice, train._id.$oid)}>Confirmer</button>
 
     </section>
   );
 };
 
-async function addToCart(passengersInfo: Record<number, { firstName: string; lastName: string }> | undefined, selected_seats: any, selectedOptions: string[], price: number) {
+async function addToCart(passengersInfo: Record<number, { firstName: string; lastName: string }> | undefined, selected_seats: any, selectedOptions: string[], price: number, ooid_train: String) {
   // check if the client is logged in
   const client = JSON.parse(localStorage.getItem("client") || "{}");
   if (client.length === 0) {
@@ -155,12 +155,16 @@ async function addToCart(passengersInfo: Record<number, { firstName: string; las
   }
 
   // if all fields are filled, we can store all these informations to the Cart collection in the database
-  var success = await storeToCartDB(id_card, selected_seats, selectedOptions, passengersInfo, price);
+  var success = await storeToCartDB(id_card, selected_seats, selectedOptions, passengersInfo, price, ooid_train);
 
   if (success === false) {
     alert("Une erreur est survenue lors de l'ajout du billet au panier");
     return;
   }
+
+  // remove the train and search object from the local storage
+  localStorage.removeItem("train");
+  localStorage.removeItem("search");
 
   // redirect to the cart page
   window.location.href = "/cart";
