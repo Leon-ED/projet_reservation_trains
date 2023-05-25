@@ -10,15 +10,16 @@ export const Navbar = () => {
             <div className="middle">
                 <ul>
                     <li><Link to="/">Accueil</Link></li>
-                    <li><a href="#">A propos</a></li>
-                    <li><a href="#">Contact</a></li>
+                    <li><a href="/cgv">A propos</a></li>
+                    <li><a href="/contact">Contact</a></li>
                 </ul>
             </div>
             <div className="right">
                 <input id="search" type="text" placeholder="Recherche" />
                 <ul>
-                    <li><a href="#">Connexion</a></li>
-                    <li><a href="#">Inscription</a></li>
+                    <li><a href="/login">Connexion</a></li>
+                    <li><a href="/reservations">Mes réservations</a></li>
+                    <li><a href="/cart">Panier</a></li>
                 </ul>
             </div>
 

@@ -20,7 +20,9 @@ if (!isset($_GET['action'])) {
 
 if ($_GET['action'] == 'add') {
     add($client);
-    
+}
+elseif ($_GET['action'] == 'get') {
+    get($client);
 }
 
 function add($client) {
@@ -35,6 +37,25 @@ function add($client) {
     $cursor = $reservation->insertOne($query);
 
     echo json_encode($cursor);
+}
+
+function get($client) {
+    if (!isset($_GET['id_card'])) {
+        echo "Invalid request";
+        die();
+    }
+
+    $reservation = $client->projet_reservation_trains->selectCollection('Reservations');
+
+    $query = array('id_card' => $_GET['id_card']);
+    $cursor = $reservation->find($query);
+
+    $array = array();
+    foreach ($cursor as $document) {
+        array_push($array, $document);
+    }
+
+    echo json_encode($array);
 }
 
 ?>

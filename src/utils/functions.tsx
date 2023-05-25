@@ -252,3 +252,17 @@ export const removeCart = async (carts: any) => {
     }
 }
 
+export const getReservations = async (id_card: string) => {
+    const response = await fetch(API_URL + "reservation.php?action=get&id_card=" + id_card)
+    const reservations = await response.json()
+
+    if (reservations.length != 0) {
+        for (let i = 0; i < reservations.length; i++) {
+            const response2 = await fetch(API_URL + "train.php?id=" + reservations[i].ooid_train)
+            const train = await response2.json()
+            reservations[i].train = train
+        }
+        return reservations
+    }
+}
+
