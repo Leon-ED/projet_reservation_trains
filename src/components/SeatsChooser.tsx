@@ -26,10 +26,17 @@ export const SeatsChooser = ({ trainCfg, numberOfPassengers, reservedSeats }: { 
     }
     useEffect(() => {
         reservedSeats(selectedSeats)
+        const train: any = JSON.parse(localStorage.getItem("train") || "{}")
         if (selectedSeats.length === numberOfPassengers) {
             setFinished(true)
+            // set the selectedSeats to the train object in local storage
+            train.selected_seats = selectedSeats
+            localStorage.setItem("train", JSON.stringify(train))
         } else {
             setFinished(false)
+            // remove the selectedSeats from the train object in local storage
+            delete train.selected_seats
+            localStorage.setItem("train", JSON.stringify(train))            
         }
     }, [selectedSeats])
 

@@ -156,3 +156,19 @@ export const getTrainConfigFromId = async (id: string): Promise<TrainConfig> => 
 
     // return train;
 }
+
+export const getOptions = async () => {
+
+    const response = await fetch(API_URL + "options.php")
+    const options = await response.json()
+
+    return options
+}
+
+export const checkClient = async (id_card : String) => {
+
+    const response = await fetch(API_URL + "client.php?action=get&id_card="+id_card)
+    const client = await response.json()
+
+    return client
+}

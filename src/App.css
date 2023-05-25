@@ -361,3 +361,38 @@ figure img{
   }
   
 }
+
+
+.recapViewer__recap__options .option-info {
+  display: inline-block;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background-color: #ccc;
+  color: #fff;
+  text-align: center;
+  font-size: 12px;
+  line-height: 14px;
+  cursor: pointer;
+  position: relative;
+}
+
+.recapViewer__recap__options .option-info::after {
+  content: attr(title);
+  position: absolute;
+  top: -20px;
+  left: 20px;
+  background-color: #888;
+  color: #fff;
+  padding: 5px;
+  border-radius: 5px;
+  white-space: nowrap;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.2s ease, visibility 0.2s ease;
+}
+
+.recapViewer__recap__options .option-info:hover::after {
+  opacity: 1;
+  visibility: visible;
+}
