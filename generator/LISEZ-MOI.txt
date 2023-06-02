@@ -1,0 +1,5 @@
+Dossier : generator
+Rôle : Générer de fausses données de test pour la base de données
+
+
+Technologies utilisées : Python 3.10
