@@ -1,0 +1,9 @@
+Dossier : server
+Rôle : Faire le lien entre le client (frontend) qui s'occupe de l'affichage et la base de données MongoDB
+Le serveur est en charge de tous les traitements et calculs, le frontend ne s'occupe que de l'affichage
+
+Technologies utilisées : PHP, MongoDB
+
+Pour exécuter le serveur, il faut disposer de composer, puis effectuer 'composer install' dans le dossier 'server'.
+Il faut aussi disposer de l'extension MongoDB pour PHP à télécharger avec 'pecl' ou directement sur le repo Github de l'extension.
+Il faut ensuite l'activer dans le fichier php.ini en ajoutant la ligne 'extension=mongodb.so' (ou dll pour Windows) et redémarrer le serveur Apache.

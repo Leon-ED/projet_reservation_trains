@@ -1,43 +1,49 @@
 <?php
+/***
+ * Projet : projet_reservation_trains
+ * Fichier : server/api/stations.php
+ * Auteurs : DELMAS Denis & EDMEE Léon
+ * Date : 01/06/2023
+ * Version : 1.0
+ * Description : Renvoie toutes les informations disponible sur une station en particulier si un nom est donné, sinon renvoie toutes les stations de la base de données
+ * METHODE : GET, POST
+ * 
+ * Licence : Libre - Creative Commons CC-BY-SA
+ * 
+ */
 
+// Charge le script de connexion à la base de données
 include '../includes/base.php';
 
-// this file is an API that return a json of stations from the database
-// if the request contain a name, the API will return the stations that contain the name
 
-// set the collection Stations
-
-// Allow CORS
-
-
+// Définit les entêtes CORS
 $stations = $client->projet_reservation_trains->selectCollection('Stations');
 
-// get the name from the request
+// Récupère le nom de la station
 if (isset($_GET['name']))
     $name = $_GET['name'];
 else
     $name = '';
 
-// if the name is not empty
+// Si le nom est défini, on récupère les informations de la station
 if ($name != '') {
-    // find the stations that contain the name
     $cursor = $stations->find(['name' => new MongoDB\BSON\Regex($name, 'i')]);
 } else {
-    // find all the stations
+    // Sinon, on récupère toutes les stations
     $cursor = $stations->find();
 }
 
-// create an array of stations
+// Crée un tableau vide
 $stationsArray = array();
 
-// for each station
+// Pour chaque station, on l'ajoute au tableau
 foreach ($cursor as $station) {
-    // id is an object, we need to convert it to string
+    // id est un objet, on le convertit en string
     $station->_id = (string)$station->_id;
     array_push($stationsArray, $station);
 }
 
-// return the array as a json
+// Envoie le tableau au format JSON
 echo json_encode($stationsArray);
 
 ?>

@@ -1,10 +1,25 @@
 <?php
+/***
+ * Projet : projet_reservation_trains
+ * Fichier : server/api/trainsList.php
+ * Auteurs : DELMAS Denis & EDMEE Léon
+ * Date : 01/06/2023
+ * Version : 1.0
+ * Description : Renvoie la liste des trains disponibles pour un trajet donné et une date donnée
+ * METHODE : GET, POST
+ * 
+ * Licence : Libre - Creative Commons CC-BY-SA
+ * 
+ */
 
 // 
-//const response = await fetch(API_URL + "/trains.php?departure_station=" + departure_station._id + "&arrival_station=" + arrival_station._id + "&date_departure=" + date_departure)
+
+// Charge le script de connexion à la base de données
 include '../includes/base.php';
 
+// On vérifie que les paramètres sont bien définis, sinon on renvoie une erreur et on arrête le script
 if (isset($_GET['departure_station']) && isset($_GET['arrival_station']) && isset($_GET['date_departure'])) {
+    // On récupère les paramètres
     $departureStationId = $_GET['departure_station'];
     $arrivalStationId = $_GET['arrival_station'];
     $date_departure = $_GET['date_departure'];
@@ -15,30 +30,28 @@ if (isset($_GET['departure_station']) && isset($_GET['arrival_station']) && isse
     return json_encode(array('error' => 'missing parameters'));
 }
 
+// On récupère la collection "Trains"
 $trains = $client->projet_reservation_trains->selectCollection('Trains');
-// $date = "18/05/2023";
-// $departureStationId = "79be237b7dc0438dad17d1c2a140d91d";
-// $arrivalStationId = "cb17d95c2a184cd79c823a7995076c03";
 
 
-// find the trains that departs from the departure station or stops at the departure station and arrives at the arrival station or stops at the arrival station
+// On crée la requête pour récupérer les trains
 $query = array(
     "departure_station" => $departureStationId,
     "arrival_station" => $arrivalStationId,
     "date_departure" => $date
 );
-// var_dump(json_encode($query));
+// On récupère les trains
 $cursor = $trains->find($query);
 
-// create an array of trains
+// On crée un tableau pour stocker les trains
 $trainsArray = array();
 
-// for each train
+// Pour chaque train, on l'ajoute au tableau
 foreach ($cursor as $train) {
     // id is an object, we need to convert it to string
     $train->_id = (string)$train->_id;
     array_push($trainsArray, $train);
 }
 
-// return the array as a json
+// On renvoie le tableau au format JSON
 echo json_encode($trainsArray);
