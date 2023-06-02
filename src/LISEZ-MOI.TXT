@@ -1,0 +1,3 @@
+Dossier: src/
+Contient tout le code de l'application React. Elle s'occupe de l'affichage des données et de la gestion des événements.
+Lors d'événements, elle envoie des requêtes au serveur pour récupérer les données. Une fois les données reçues, elle les affiche.   

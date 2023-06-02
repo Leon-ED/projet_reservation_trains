@@ -1,3 +1,13 @@
+/**
+ * Projet: @projet_reservation_trains
+ * Fichier: src/pages/Reservations.tsx
+ * Auteur(s): Denis DELMAS
+ * Date: 01/06/2023
+ * Description: Page qui affiche les réservations de l'utilisateur
+ * Version : 1.0
+ * 
+ * License: @license MIT
+*/
 import { useState, useEffect } from "react";
 import { getReservations } from "../utils/functions";
 import jsPDF from 'jspdf';
@@ -5,35 +15,32 @@ import QRCode from 'qrcode';
 
 
 
-
+// Page qui affiche les réservations de l'utilisateur
 export const Reservations = () => {
-    const client = JSON.parse(localStorage.getItem("client") || "{}");
+    const client = JSON.parse(localStorage.getItem("client") || "{}"); // Récupérer les informations du client dans le local storage
     const id_card = client.card;
+ 
+    const [reservations, setReservations] = useState<any | null>(undefined); // Liste des réservations de l'utilisateur
 
-    const [reservations, setReservations] = useState<any | null>(undefined);
-
-    useEffect(() => {
-        if (id_card === undefined) {
-            alert("Veuillez vous connecter pour accéder à vos réservations");
-            // redirect to the login page
+    useEffect(() => { // Récupérer les réservations de l'utilisateur
+        if (id_card === undefined) { // Vérifier si le client est connecté
+            alert("Veuillez vous connecter pour accéder à vos réservations"); // Afficher un message d'erreur
+            // Rediriger vers la page de connexion
             window.location.href = "/login";
         } else {
-            // fetch the reservations from the database
+            // Récupérer les réservations de l'utilisateur
             getReservations(id_card)
                 .then((reservationsData) => {
-                    // decode the JSON string
+                    // On met à jour la liste des réservations de l'utilisateur
                     for (let i = 0; i < reservationsData.length; i++) {
-                        // convert to array the selectedOptions, passengersInfo and selected_seats
-
                         reservationsData[i].selectedOptions = JSON.parse(reservationsData[i].selectedOptions)
                         reservationsData[i].selectedOptions = JSON.parse(reservationsData[i].selectedOptions)
                         reservationsData[i].passengersInfo = JSON.parse(reservationsData[i].passengersInfo)
                         reservationsData[i].passengersInfo = JSON.parse(reservationsData[i].passengersInfo)
                         reservationsData[i].selected_seats = JSON.parse(reservationsData[i].selected_seats)
 
-                        console.log(reservationsData[i])
                     }
-                    // reservationsData = JSON.parse(reservationsData)
+                    // On met à jour la liste des réservations de l'utilisateur
                     setReservations(reservationsData);
                 })
                 .catch((error) => {
@@ -42,11 +49,11 @@ export const Reservations = () => {
         }
     }, [id_card]);
 
+    // Afficher les réservations de l'utilisateur
     return (
         <>
             <section>
                 <h2>Mes Réservations</h2>
-
                 <div>
                     {reservations ? (
                         <table>
@@ -100,12 +107,13 @@ export const Reservations = () => {
     );
 };
 
+// Fonction qui permet d'afficher le billet au format PDF
 function showPrintBillet(reservation: any) {
-    console.log(reservation);
     // Appeler la fonction pour générer le billet au format PDF
     generateEbilletPDF(reservation);
 }
 
+// Fonction qui permet de générer le billet au format PDF
 function generateEbilletPDF(reservation: any) {
     // Récupérer les informations nécessaires du JSON de réservation
     const trainType = reservation.train.train_type;

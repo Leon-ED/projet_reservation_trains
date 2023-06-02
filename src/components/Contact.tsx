@@ -1,23 +1,33 @@
+/**
+ * Projet: @projet_reservation_trains
+ * Fichier: src/components/Contact.tsx
+ * Auteur(s): Denis DELMAS
+ * Date: 01/06/2023
+ * Description: Affichage du formulaire de contact
+ * Version : 1.0
+ * 
+ * License: @license MIT
+*/
+
 import { useState } from "react";
 
+// Formulaire de contact
 export const Contact = () => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [message, setMessage] = useState("");
 
-  const handleSubmit = (e) => {
+  const handleSubmit = (e: any) => {
     e.preventDefault();
     // Envoyer le formulaire ou effectuer d'autres actions en fonction de vos besoins
-    console.log("Formulaire soumis !");
-    console.log("Nom :", name);
-    console.log("Email :", email);
-    console.log("Message :", message);
+
     // Réinitialiser les champs du formulaire
     setName("");
     setEmail("");
     setMessage("");
   };
 
+  // Afficher le formulaire de contact
   return (
     <>
       <section>

@@ -1,36 +1,51 @@
+/**
+ * Projet: @projet_reservation_trains
+ * Fichier: src/components/Search.tsx
+ * Auteur(s): Léon EDMEE
+ * Date: 01/06/2023
+ * Description: Ce composant affiche le formulaire de recherche de trains
+ * Version : 1.0
+ * 
+ * License: @license MIT
+*/
+
+
 import { useEffect, useState } from "react";
 import { SearchType, Station } from "../utils/types";
 import { getStations, buildSearchURL } from "../utils/functions";
 import { AutoCompleteStation } from "./Station";
 import { useNavigate } from "react-router-dom";
 
+// Composant SearchComponent qui affiche le formulaire de recherche de trains
 export const SearchComponent = () => {
-    const [stations, setStations] = useState<Station[]>([]);
-    const todaysDate = new Date().toISOString().slice(0, 10);
-    const sevenDaysLater = new Date(new Date().getTime() + 7 * 24 * 60 * 60 * 1000).toISOString().slice(0, 10);
-    const [isRoundTrip, setIsRoundTrip] = useState<boolean>(false);
+    const [stations, setStations] = useState<Station[]>([]); // Liste des gares
+    const todaysDate = new Date().toISOString().slice(0, 10); // Date du jour
+    const sevenDaysLater = new Date(new Date().getTime() + 7 * 24 * 60 * 60 * 1000).toISOString().slice(0, 10); // Date du jour + 7 jours
+    const [isRoundTrip, setIsRoundTrip] = useState<boolean>(false); // Aller-retour 
 
-    const [numberOfPassengers, setNumberOfPassengers] = useState<number>(1);
-    const [dateDeparture, setDateDeparture] = useState<string>(todaysDate);
-    const [dateReturn, setDateReturn] = useState<string>(sevenDaysLater);
-    const navigate = useNavigate()
+    const [numberOfPassengers, setNumberOfPassengers] = useState<number>(1); // Nombre de passagers
+    const [dateDeparture, setDateDeparture] = useState<string>(todaysDate); // Date de départ
+    const [dateReturn, setDateReturn] = useState<string>(sevenDaysLater); // Date de retour
+    const navigate = useNavigate() // Hook de navigation
 
+    // Gérer le clic sur le bouton de recherche
     function searchAction() {
-        let departureStationElem = document.getElementById("gareDepart") as HTMLInputElement
-        let arrivalStationElem = document.getElementById("gareArrivee") as HTMLInputElement
+        let departureStationElem = document.getElementById("gareDepart") as HTMLInputElement // Gare de départ
+        let arrivalStationElem = document.getElementById("gareArrivee") as HTMLInputElement // Gare d'arrivée
 
-        const departureStationValue = departureStationElem.value
-        const arrivalStationValue = arrivalStationElem.value
+        const departureStationValue = departureStationElem.value // Valeur de la gare de départ
+        const arrivalStationValue = arrivalStationElem.value // Valeur de la gare d'arrivée
 
-        const departureStation = findStation(departureStationValue, stations)
-        const arrivalStation = findStation(arrivalStationValue, stations)
+        const departureStation = findStation(departureStationValue, stations) // Gare de départ
+        const arrivalStation = findStation(arrivalStationValue, stations) // Gare d'arrivée
 
+        // Vérifier que les gares de départ et d'arrivée sont bien renseignées
         if (!departureStation || !arrivalStation) {
             return
         }
 
 
-
+        // Vérifier que la date de départ est bien renseignée
         const search: SearchType = {
             departure_station: departureStation!,
             arrival_station: arrivalStation!,
@@ -40,24 +55,24 @@ export const SearchComponent = () => {
             date_return: dateReturn
         }
         const url = buildSearchURL(search)
-   
+
         navigate(url)
     }
     useEffect(() => {
         getStations().then((data) => {
-            console.log(data)
             return setStations(data)
         })
 
     }, [])
 
+    // Créer la liste des gares
     const stationsList = stations.map((station) => {
         return <AutoCompleteStation key={station._id} {...station} />
     })
 
 
 
-
+    // Afficher le formulaire de recherche de trains
     return (
         <section>
             <div className="search-options flex-row">
@@ -119,10 +134,7 @@ export const SearchComponent = () => {
 
 
 }
-
-
-
-
+// Trouver une gare dans la liste des gares
 const findStation = (stationName: string, list: Station[]) => {
     const stationNameCleaned = stationName.toLowerCase().trim().replaceAll(" ", "")
     let foundStation: Station | undefined = undefined

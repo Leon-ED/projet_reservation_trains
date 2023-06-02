@@ -106,7 +106,6 @@ export const getStationsFromList = async (idList: string[]): Promise<Station[]> 
         stationList[index] = stations.find((station) => station._id === id)!
     }
     )
-    console.log(stationList)
 
     return stationList
 

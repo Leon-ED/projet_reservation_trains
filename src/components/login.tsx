@@ -1,7 +1,18 @@
-//  ask the login page to redirect to the cart page after a successful login
+/**
+ * Projet: @projet_reservation_trains
+ * Fichier: src/components/login.tsx
+ * Auteur(s): Denis DELMAS
+ * Date: 01/06/2023
+ * Description: Affichage du formulaire de connexion avec le numéro de carte
+ * Version : 1.0
+ * 
+ * License: @license MIT
+*/
+
 
 import { checkClient } from "../utils/functions";
 
+// Composant Login qui affiche le formulaire de connexion avec le numéro de carte
 export const Login = () => {
     return (
         <section>
@@ -15,6 +26,7 @@ export const Login = () => {
     );
 };
 
+// Gérer la connexion, vérifier si le numéro de carte est valide, puis rediriger vers la page du panier
 const login = async (e: any) => {
     e.preventDefault();
     const card = e.target.card.value;

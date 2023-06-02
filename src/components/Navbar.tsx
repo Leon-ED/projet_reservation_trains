@@ -1,5 +1,16 @@
+/**
+ * Projet: @projet_reservation_trains
+ * Fichier: src/components/Navbar.tsx
+ * Auteur(s): léon EDMEE
+ * Date: 01/06/2023
+ * Description: Affichage de la barre de navigation
+ * Version : 1.0
+ * 
+ * License: @license MIT
+*/
 import { Link } from "react-router-dom"
 
+// Composant Navbar qui affiche la barre de navigation
 export const Navbar = () => {
     return (
         <nav>
@@ -22,11 +33,6 @@ export const Navbar = () => {
                     <li><a href="/cart">Panier</a></li>
                 </ul>
             </div>
-
-
-
-
-
         </nav>
     )
 }

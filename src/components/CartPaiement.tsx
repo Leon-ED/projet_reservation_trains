@@ -1,6 +1,18 @@
+/**
+ * Projet: @projet_reservation_trains
+ * Fichier: src/components/CartPaiement.tsx
+ * Auteur(s): Denis DELMAS
+ * Date: 01/06/2023
+ * Description: Affichage de la page de paiement et gestion du paiement de la commande (carte bancaire)
+ * Version : 1.0
+ * 
+ * License: @license MIT
+*/
 import { useState } from "react";
 import { checkCode, addReservation, removeCart } from "../utils/functions";
 
+
+// Composant CartPaiement qui affiche la page de paiement et gère le paiement de la commande
 export const CartPaiement = () => {
     const [promoCode, setPromoCode] = useState("");
     const [discount, setDiscount] = useState(0);
@@ -8,7 +20,7 @@ export const CartPaiement = () => {
     const [isPercentage, setIsPercentage] = useState(false); // true = pourcentage, false = montant fixe
 
     const applyPromoCode = () => {
-        
+
         // Vérifier si le code promo est valide
         checkCode(promoCode)
             .then((codeData) => {
@@ -27,25 +39,28 @@ export const CartPaiement = () => {
                         // Calculer la réduction en montant fixe
                         setDiscount(codeData.reduction);
                     }
-                }})
+                }
+            })
         setPromoCode("");
     };
 
-    // get the total price of the cart from the carts array in the local storage
+    // Obtenir le panier
     const carts = JSON.parse(localStorage.getItem("carts") || "[]");
 
+    // Calculer le montant total de la commande
     const totalPrice = carts?.reduce((total: number, cart: any) => total + parseInt(cart.price, 10), 0); // Montant total de la commande
     const finalPrice = totalPrice - discount; // Montant total après réduction
 
+    // Gérer le paiement
     const handlePayButton = (montant: string | number) => {
-        //  check if the user has accepted the terms and conditions
+        //  Vérifier si l'utilisateur a accepté les conditions générales de vente
         const cgv = document.getElementById("cgv") as HTMLInputElement;
         if (!cgv.checked) {
             alert("Veuillez accepter les conditions générales de vente");
             return;
         }
 
-        // check if the card number and the card name and the card expiration date and the card cvc are not empty
+        // Vérifier si tous les champs de la carte bancaire sont remplis
         const cardNumber = document.getElementById("cardNumber") as HTMLInputElement;
         const cardName = document.getElementById("cardName") as HTMLInputElement;
         const cardExpiration = document.getElementById("cardExpiration") as HTMLInputElement;
@@ -55,6 +70,7 @@ export const CartPaiement = () => {
             return;
         }
 
+        // Demander confirmation à l'utilisateur
         const confirmed = window.confirm("Confirmez-vous le paiement de " + montant + "€?");
         if (confirmed) {
             addReservation(carts, discountBrut, isPercentage)
@@ -65,11 +81,12 @@ export const CartPaiement = () => {
             // Rediriger vers la page de réservation
             window.location.href = "/reservations";
 
-            
+
         }
     };
 
     return (
+        // Affichage de la page de paiement
         <section>
             <h2>Page de paiement</h2>
 
@@ -87,7 +104,7 @@ export const CartPaiement = () => {
                     <div className="paiementPrice">
                         <a className="left">Montant total : </a><a className="right">{totalPrice}€</a>
                         <br />
-                        {discount >0 && <a className="">Code promo : {discount}€</a>}
+                        {discount > 0 && <a className="">Code promo : {discount}€</a>}
                         <br />
                         <a className="left">Montant à payer : </a><a className="right">{finalPrice}€</a>
                     </div>
